@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.google.android.gms.maps.GoogleMap
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
@@ -15,6 +16,10 @@ import org.koin.android.ext.android.inject
 class SaveReminderFragment : BaseFragment() {
     //Get the view model this time as a single to be shared with the another fragment
     override val _viewModel: SaveReminderViewModel by inject()
+    override fun OnMapReady(googleMap: GoogleMap) {
+        TODO("Not yet implemented")
+    }
+
     private lateinit var binding: FragmentSaveReminderBinding
 
     override fun onCreateView(
