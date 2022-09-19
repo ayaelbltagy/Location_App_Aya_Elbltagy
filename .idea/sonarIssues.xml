@@ -3,6 +3,26 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/Dummy.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../BusinessBoomers/cpanel-android/app/src/main/java/zvendo/businessboomers/cpanel/views/ui/Order/createNewOrderV2/EditItemQuantityInOrderFragmentViewV2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../BusinessBoomers/cpanel-android/app/src/main/res/values-ar/strings.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../BusinessBoomers/cpanel-android/app/src/main/res/values/strings.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/build.gradle">
           <value>
             <set />
@@ -18,6 +38,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/authentication/AuthenticationActivity.kt">
           <value>
             <set />
@@ -29,6 +54,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/authentication/UserLoginViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceBroadcastReceiver.kt">
           <value>
             <set />
           </value>
@@ -63,12 +93,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/raw/map_style.json">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/java/com/store/businessboomers/store_app_interface/comman/components/genericPackage/MyCart/MyCartGeneric.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/java/com/store/businessboomers/store_app_interface/default_layout/views/ui/filter/FrProductDetailsView.java">
           <value>
             <set />
           </value>

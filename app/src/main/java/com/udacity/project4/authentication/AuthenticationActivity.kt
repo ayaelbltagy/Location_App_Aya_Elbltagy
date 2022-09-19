@@ -52,7 +52,7 @@ class AuthenticationActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this,
-                    "Sign in unsuccessful ${response?.error?.errorCode}",
+                    "Sign in unsuccessful",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -82,6 +82,7 @@ class AuthenticationActivity : AppCompatActivity() {
                 }
                 UserLoginViewModel.AuthenticationStatusClass.UNAUTHENTICATED -> {
                     // convert  logout to login
+
                 }
             }
         })

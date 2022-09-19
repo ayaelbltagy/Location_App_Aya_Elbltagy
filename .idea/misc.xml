@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/BBN00Android/Desktop/project4/starter/app/src/main/res/layout/activity_authentication.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/BBN00Android/Desktop/project4/starter/app/src/main/res/layout/activity_reminders.xml" value="0.18931159420289856" />
         <entry key="..\:/Users/BBN00Android/Desktop/project4/starter/app/src/main/res/layout/fragment_select_location.xml" value="0.19384057971014493" />
+        <entry key="..\:/Users/BBN00Android/Desktop/project4/starter/app/src/main/res/menu/main_menu.xml" value="0.253125" />
         <entry key="..\:/Users/BBN00Android/Desktop/project4/starter/app/src/main/res/menu/map_options.xml" value="0.253125" />
         <entry key="..\:/Users/BBN00Android/Downloads/nd940-android-kotlin-c4-starter-master/starter/app/src/main/res/layout/activity_authentication.xml" value="0.20697463768115942" />
         <entry key="..\:/Users/BBN00Android/Downloads/nd940-android-kotlin-c4-starter-master/starter/app/src/main/res/layout/activity_reminder_description.xml" value="0.20697463768115942" />

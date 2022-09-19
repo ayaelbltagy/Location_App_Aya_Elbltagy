@@ -1,9 +1,16 @@
 package com.udacity.project4.locationreminders.geofence
 
+import android.Manifest
+import android.annotation.TargetApi
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 import androidx.core.app.JobIntentService
 import com.google.android.gms.location.Geofence
+import com.google.android.gms.location.GeofencingEvent
+import com.google.android.gms.location.LocationServices
 import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
@@ -20,6 +27,8 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + coroutineJob
 
+
+
     companion object {
         private const val JOB_ID = 573
 
@@ -33,10 +42,15 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
         }
     }
 
+
     override fun onHandleWork(intent: Intent) {
-        //TODO: handle the geofencing transition events and
-        // send a notification to the user when he enters the geofence area
-        //TODO call @sendNotification
+       var geoFence = GeofencingEvent.fromIntent(intent)
+        if(geoFence.hasError()){
+            return
+        }
+        if(geoFence.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER){
+            sendNotification(geoFence.triggeringGeofences)
+        }
     }
 
     //TODO: get the request id of the current geofence
@@ -65,5 +79,7 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
             }
         }
     }
+
+
 
 }
