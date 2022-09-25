@@ -6,13 +6,10 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
-import com.udacity.project4.locationreminders.data.dto.Result
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.instanceOf
-import org.hamcrest.MatcherAssert.assertThat
+import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -25,6 +22,37 @@ import org.junit.runner.RunWith
 @MediumTest
 class RemindersLocalRepositoryTest {
 
-//    TODO: Add testing implementation to the RemindersLocalRepository.kt
+    // Executes each task synchronously using Architecture Components.
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+    private lateinit var database: RemindersDatabase
+    private lateinit var repo: RemindersLocalRepository
 
-}
+    @Before
+    fun setup() {
+        database = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            RemindersDatabase::class.java
+        ).build()
+        repo = RemindersLocalRepository(database.reminderDao())
+
+    }
+
+    @After
+    fun cleanUp() {
+        database.close()
+    }
+        @Test
+        fun test_add_and_retrive_from_db() = runBlockingTest {
+            //Given
+            val damyData = ReminderDTO("title", "desc", "location", 200.00, 500.00)
+            // add data to db
+            // When
+            repo.saveReminder(damyData)
+            // get data from db
+            //Then
+            val list = repo.getReminders()
+            MatcherAssert.assertThat(list.toString(), CoreMatchers.`is`("location"))
+
+        }
+    }

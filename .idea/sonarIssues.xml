@@ -38,6 +38,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersDaoTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersLocalRepositoryTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml">
           <value>
             <set />
@@ -59,6 +69,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/authentication/UserLoginViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/locationreminders/ReminderDescriptionActivity.kt">
           <value>
             <set />
           </value>

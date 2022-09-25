@@ -15,6 +15,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi;
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
+import org.hamcrest.MatcherAssert
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Test
@@ -25,6 +26,25 @@ import org.junit.Test
 @SmallTest
 class RemindersDaoTest {
 
-//    TODO: Add testing implementation to the RemindersDao.kt
+@get:Rule
+var role = InstantTaskExecutorRule()
+    private lateinit var database : RemindersDatabase
 
+    @Before
+    fun initilization_of_db(){
+        database = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),RemindersDatabase::class.java).build()
+    }
+    @After
+    fun close_data_base(){
+        database.close()
+    }
+    @Test
+      fun test_insert_and_retrive_data_from_db() = runBlockingTest{
+        val data = ReminderDTO("test","desc","location",100.00,100.00)
+        database.reminderDao().saveReminder(data)
+        val list = database.reminderDao().getReminders()
+         assertThat(list[0].location, `is`("location"))
+
+
+    }
 }
