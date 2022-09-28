@@ -47,7 +47,7 @@ class SaveReminderViewModelTest {
         // Then the loading is showed
         MatcherAssert.assertThat(saveViewModel.showLoading.value, CoreMatchers.`is`(true))
 
-        // mainCoroutineRule.resumeDispatcher()
+        mainCoroutineRule.resumeDispatcher()
         MatcherAssert.assertThat(saveViewModel.showLoading.value, CoreMatchers.`is`(false))
     }
 
@@ -64,6 +64,7 @@ class SaveReminderViewModelTest {
     @Test
     fun check_status_on_connection() = runBlockingTest {
         val saveViewModelResponse = saveViewModel.validateEnteredData(createFakeReminderDataItem())
-        MatcherAssert.assertThat(saveViewModelResponse, CoreMatchers.`is`(false))
+        MatcherAssert.assertThat(saveViewModelResponse, CoreMatchers.`is`(true))
     }
+
 }

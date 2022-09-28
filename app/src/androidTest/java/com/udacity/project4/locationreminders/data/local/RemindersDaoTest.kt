@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi;
 import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert
@@ -44,7 +45,17 @@ var role = InstantTaskExecutorRule()
         database.reminderDao().saveReminder(data)
         val list = database.reminderDao().getReminders()
          assertThat(list[0].location, `is`("location"))
-
+    }
+    @Test
+    fun test_delete_from_db() = runBlockingTest{
+        val data = ReminderDTO("test","desc","location",100.00,100.00)
+        database.reminderDao().saveReminder(data)
+        database.reminderDao().deleteAllReminders()
+        assertThat(database.reminderDao().getReminders().isEmpty(), `is`(true))
+    }
+    @Test
+    fun test_id_not_found() = runBlockingTest{
+        assertThat(database.reminderDao().getReminderById("5600"), CoreMatchers.nullValue())
 
     }
 }
