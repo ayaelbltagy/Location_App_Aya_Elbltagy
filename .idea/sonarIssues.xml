@@ -38,6 +38,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/udacity/project4/RemindersActivityTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersDaoTest.kt">
           <value>
             <set />
@@ -53,12 +58,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragmentTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/MyApp.kt">
           <value>
             <set />
           </value>
@@ -129,6 +144,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/test/java/com/udacity/project4/locationreminders/data/FakeDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModelTest.kt">
           <value>
             <set />
           </value>
