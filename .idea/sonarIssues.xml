@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../Android_NanoDegree_Location_Reminders/app/src/androidTest/java/com/udacity/project4/RemindersActivityTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../BusinessBoomers/cpanel-android/app/src/main/java/zvendo/businessboomers/cpanel/views/ui/Order/createNewOrderV2/EditItemQuantityInOrderFragmentViewV2.java">
           <value>
             <set />
@@ -98,6 +103,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/locationreminders/RemindersActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceBroadcastReceiver.kt">
           <value>
             <set />
@@ -179,6 +189,21 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/java/com/store/businessboomers/store_app_interface/comman/components/genericPackage/MyCart/MyCartGeneric.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/java/com/store/businessboomers/store_app_interface/comman/services/webApi/APIinterfaceKotlin.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/java/com/store/businessboomers/store_app_interface/comman/services/webApi/ApiClient.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/java/com/store/businessboomers/store_app_interface/comman/services/webApi/RetroInstance.kt">
           <value>
             <set />
           </value>
@@ -334,6 +359,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/res/values/strings.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/MostafaMohamed2002-My-Udacity-Project-4-7bd3969/app/src/main/java/com/udacity/project4/locationreminders/savereminder/selectreminderlocation/SelectLocationFragment.kt">
           <value>
             <set />
           </value>

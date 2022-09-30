@@ -1,16 +1,32 @@
 package com.udacity.project4
 
 import android.app.Application
+import androidx.lifecycle.Transformations.map
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import com.udacity.project4.locationreminders.RemindersActivity
 import com.udacity.project4.locationreminders.data.ReminderDataSource
+import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.local.LocalDB
 import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
 import com.udacity.project4.locationreminders.reminderslist.RemindersListViewModel
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
+import com.udacity.project4.util.DataBindingIdlingResource
+import com.udacity.project4.util.monitorActivity
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.After
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -27,6 +43,8 @@ class RemindersActivityTest :
 
     private lateinit var repository: ReminderDataSource
     private lateinit var appContext: Application
+
+    private val dataBinding = DataBindingIdlingResource()
 
     /**
      * As we use Koin as a Service Locator Library to develop our code, we'll also use Koin to test our code.
@@ -65,7 +83,61 @@ class RemindersActivityTest :
         }
     }
 
+    @Before
+    fun register_id_resource() {
+        IdlingRegistry.getInstance().register(dataBinding)
+    }
 
-//  start from here
+    @After
+    fun unregister_id_resource() {
+        IdlingRegistry.getInstance().unregister(dataBinding)
+    }
+    @Test
+    fun test_error_title_in_sack_bar(){
+        Thread.sleep(1000)
+        val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
+        dataBinding.monitorActivity(activityScenario)
+        onView(withId(R.id.addReminderFAB)).perform(click())
+        onView(withId(R.id.saveReminder)).perform(click())
+        val errorMessage = appContext.getString(R.string.err_enter_title)
+        onView(withText(errorMessage)).check(matches(isDisplayed()))
+        activityScenario.close()
+    }
+
+    @Test
+    fun check_no_location_snack_bar(){
+        Thread.sleep(1000)
+        val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
+        dataBinding.monitorActivity(activityScenario)
+        onView(withId(R.id.noDataTextView)).check(matches(isDisplayed()))
+        onView(withId(R.id.addReminderFAB)).perform(click())
+        onView(withId(R.id.saveReminder)).perform(click())
+        val errorMessage = appContext.getString(R.string.err_enter_title)
+        onView(withText(errorMessage)).check(matches(isDisplayed()))
+        activityScenario.close()
+
+    }
+    @Test
+    fun test_add_new_reminder() = runBlocking{
+        val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
+        dataBinding.monitorActivity(activityScenario)
+        onView(withId(R.id.noDataTextView)).check(matches(isDisplayed()))
+        onView(withId(R.id.addReminderFAB)).perform(click())
+        // add data to view
+        onView(withId(R.id.reminderTitle)).perform(replaceText("title"))
+        onView(withId(R.id.reminderDescription)).perform(replaceText("desciription"))
+        onView(withId(R.id.selectLocation)).perform(click())
+        onView(withId(R.id.googleMap)).perform(click())
+        onView(withId(R.id.myButton)).perform(click())
+        // save in db
+        repository.saveReminder(ReminderDTO("title","desciription","location",5300.0,6.0))
+        Espresso.pressBack()
+        // get and match data
+        onView(withText("title")).check(matches(isDisplayed()))
+        onView(withText("desciription")).check(matches(isDisplayed()))
+        Thread.sleep(2000)
+        activityScenario.close()
+
+    }
 
 }
