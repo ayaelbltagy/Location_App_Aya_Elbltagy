@@ -3,24 +3,17 @@ package com.udacity.project4.locationreminders.data.local
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.google.android.gms.common.util.CollectionUtils.isEmpty
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
 import com.udacity.project4.locationreminders.data.rule.MainCoroutineRule
-import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import net.bytebuddy.pool.TypePool
 import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
-import org.hamcrest.text.IsEmptyString.isEmptyString
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -83,8 +76,9 @@ class RemindersLocalRepositoryTest {
         MatcherAssert.assertThat(result.data.isEmpty(), CoreMatchers.`is`(true))
 
     }
+
     @Test
-    fun test_error_if_reminder_not_found() = runBlockingTest{
+    fun test_error_if_reminder_not_found() = runBlockingTest {
         val result = repo.getReminder("50000") as Result.Error
         MatcherAssert.assertThat(result.message, CoreMatchers.`is`("Reminder not found!"))
 

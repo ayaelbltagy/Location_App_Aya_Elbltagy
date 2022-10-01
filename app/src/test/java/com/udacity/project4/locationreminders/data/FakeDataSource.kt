@@ -7,7 +7,7 @@ import com.udacity.project4.locationreminders.data.dto.Result
 class FakeDataSource : ReminderDataSource {
 
     var list = mutableListOf<ReminderDTO>()
-    private var error = false
+    var error = false
 
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
         list?.let {

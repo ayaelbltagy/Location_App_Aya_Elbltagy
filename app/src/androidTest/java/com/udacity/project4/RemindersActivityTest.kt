@@ -1,14 +1,16 @@
 package com.udacity.project4
 
 import android.app.Application
-import androidx.lifecycle.Transformations.map
+import android.os.IBinder
+import android.view.WindowManager
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.Root
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -23,7 +25,8 @@ import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorActivity
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.Description
+import org.hamcrest.TypeSafeMatcher
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -92,8 +95,9 @@ class RemindersActivityTest :
     fun unregister_id_resource() {
         IdlingRegistry.getInstance().unregister(dataBinding)
     }
+
     @Test
-    fun test_error_title_in_sack_bar(){
+    fun test_error_title_in_sack_bar() {
         Thread.sleep(1000)
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
         dataBinding.monitorActivity(activityScenario)
@@ -105,7 +109,7 @@ class RemindersActivityTest :
     }
 
     @Test
-    fun check_no_location_snack_bar(){
+    fun check_no_location_snack_bar() {
         Thread.sleep(1000)
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
         dataBinding.monitorActivity(activityScenario)
@@ -117,8 +121,9 @@ class RemindersActivityTest :
         activityScenario.close()
 
     }
+
     @Test
-    fun test_add_new_reminder() = runBlocking{
+    fun test_add_new_reminder() = runBlocking {
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
         dataBinding.monitorActivity(activityScenario)
         onView(withId(R.id.noDataTextView)).check(matches(isDisplayed()))
@@ -130,7 +135,7 @@ class RemindersActivityTest :
         onView(withId(R.id.googleMap)).perform(click())
         onView(withId(R.id.myButton)).perform(click())
         // save in db
-        repository.saveReminder(ReminderDTO("title","desciription","location",5300.0,6.0))
+        repository.saveReminder(ReminderDTO("title", "desciription", "location", 5300.0, 6.0))
         Espresso.pressBack()
         // get and match data
         onView(withText("title")).check(matches(isDisplayed()))
@@ -138,6 +143,43 @@ class RemindersActivityTest :
         Thread.sleep(2000)
         activityScenario.close()
 
+    }
+
+    @Test
+    fun add_reminder_and_show_toast_message() {
+        val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
+        dataBinding.monitorActivity(activityScenario)
+        onView(withId(R.id.noDataTextView)).check(matches(isDisplayed()))
+        onView(withId(R.id.addReminderFAB)).perform(click())
+        // add data to view
+        onView(withId(R.id.reminderTitle)).perform(replaceText("title"))
+        onView(withId(R.id.reminderDescription)).perform(replaceText("desciription"))
+        onView(withId(R.id.selectLocation)).perform(click())
+        onView(withId(R.id.googleMap)).perform(click())
+        onView(withId(R.id.myButton)).perform(click())
+        onView(withId(R.id.saveReminder)).perform(click())
+        // test toast showing
+        onView(withText(R.string.select_location)).inRoot(ToastMatcher()).check(matches(isDisplayed()))
+        activityScenario.close()
+    }
+}
+
+class ToastMatcher : TypeSafeMatcher<Root>() {
+
+    override fun describeTo(description: Description) {
+        description.appendText("is toast");
+    }
+
+    override fun matchesSafely(root: Root): Boolean {
+        val type: Int = root.windowLayoutParams.get().type
+        if (type == WindowManager.LayoutParams.TYPE_TOAST) {
+            val windowToken: IBinder = root.decorView.windowToken
+            val appToken: IBinder = root.decorView.applicationWindowToken
+            if (windowToken === appToken) {
+                return true
+            }
+        }
+        return false
     }
 
 }

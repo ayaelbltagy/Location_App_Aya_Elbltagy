@@ -3,8 +3,6 @@ package com.udacity.project4.locationreminders.reminderslist
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,7 +14,6 @@ import com.udacity.project4.authentication.UserLoginViewModel
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.databinding.FragmentRemindersBinding
-import com.udacity.project4.locationreminders.RemindersActivity
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
 import com.udacity.project4.utils.setTitle
 import com.udacity.project4.utils.setup
@@ -25,6 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ReminderListFragment : BaseFragment() {
     //use Koin to retrieve the ViewModel instance
     override val _viewModel: RemindersListViewModel by viewModel()
+
     // Get a reference to the ViewModel scoped to this Fragment
     private val viewModel by viewModels<UserLoginViewModel>()
     private var isLogin = false
@@ -91,15 +89,15 @@ class ReminderListFragment : BaseFragment() {
         when (item.itemId) {
             R.id.logout -> {
                 //  navigate to login activity
-               AuthUI.getInstance().signOut(requireContext())
-                 .addOnSuccessListener {
+                AuthUI.getInstance().signOut(requireContext())
+                    .addOnSuccessListener {
                         val logOutIntent = Intent(activity, AuthenticationActivity::class.java)
                         logOutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(logOutIntent)
                         requireActivity().finish()
 
-                  }
-              }
+                    }
+            }
         }
         return super.onOptionsItemSelected(item)
 
@@ -107,19 +105,18 @@ class ReminderListFragment : BaseFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
- //        display logout as menu item
+        //        display logout as menu item
         inflater.inflate(R.menu.main_menu, menu)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        if(isLogin){
+        if (isLogin) {
             menu.findItem(R.id.logout).setTitle("Logout")
-        }
-        else{
+        } else {
             menu.findItem(R.id.logout).setTitle("Login")
         }
         super.onPrepareOptionsMenu(menu)
-        }
+    }
 
     private fun observeAuthenticateState() {
         viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->

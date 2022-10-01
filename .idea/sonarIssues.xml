@@ -153,6 +153,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/com/udacity/project4/locationreminders/LiveDataUnitTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/test/java/com/udacity/project4/locationreminders/data/FakeDataSource.kt">
           <value>
             <set />
@@ -359,6 +364,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/res/values/strings.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/MostafaMohamed2002-My-Udacity-Project-4-7bd3969/app/src/androidTest/java/com/udacity/project4/ToastMatcher.kt">
           <value>
             <set />
           </value>

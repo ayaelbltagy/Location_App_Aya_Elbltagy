@@ -2,22 +2,24 @@ package com.udacity.project4.locationreminders.savereminder.selectreminderlocati
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.databinding.FragmentSelectLocationBinding
@@ -25,11 +27,6 @@ import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
 import org.koin.android.ext.android.inject
 import java.util.*
-import com.google.android.gms.maps.CameraUpdateFactory
-
-import com.google.android.gms.maps.model.LatLng
-
-
 
 
 class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
@@ -40,7 +37,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentSelectLocationBinding
     private lateinit var map: GoogleMap
     private var marker: Marker? = null
-  //  private lateinit var fusedLocationProvider: FusedLocationProviderClient
+    private lateinit var fusedLocationProvider: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,10 +51,11 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         setHasOptionsMenu(true)
         setDisplayHomeAsUpEnabled(true)
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.googleMap) as SupportMapFragment
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.googleMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-      //  fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireContext())
 
         binding.myButton.setOnClickListener {
             onLocationSelected()
@@ -160,10 +158,22 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             map.isMyLocationEnabled = true
-            zoomToMyCurrentLocation(true)
-//        } else if () {
-//
-//        } else {
+            zoomToMyCurrentLocation()
+        } else if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // if you fail to get my current location press retry will request permission again
+            Snackbar.make(
+                requireActivity().findViewById(R.id.content),
+                R.string.location_required_error,
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction(R.string.retry) {
+                    requestPermissions(
+                        arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
+                        FINE_LOCATION_PERMISSION_REQUEST_CODE
+                    )
+                }
+
+        } else {
             requestPermissions(
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
                 FINE_LOCATION_PERMISSION_REQUEST_CODE
@@ -172,11 +182,8 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     }
 
 
-
-
-
-
-    private fun zoomToMyCurrentLocation(b: Boolean) {
+    @SuppressLint("MissingPermission")
+    private fun zoomToMyCurrentLocation() {
         val locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_LOW_POWER
         }
@@ -184,6 +191,14 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         val settingsClient = LocationServices.getSettingsClient(requireActivity())
         val locationSettingsResponseTask = settingsClient.checkLocationSettings(builder.build())
         locationSettingsResponseTask.addOnCompleteListener {
+            if (it.isSuccessful) {
+                fusedLocationProvider.lastLocation.addOnSuccessListener {
+                    if (it != null) {
+                        val latLang = LatLng(it.latitude, it.longitude)
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLang, 15f))
+                    }
+                }
+            }
 
         }
     }
@@ -213,10 +228,13 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
                     return
                 }
                 map.isMyLocationEnabled = true
+                zoomToMyCurrentLocation()
 
             } else {
                 _viewModel.showSnackBarInt.value = R.string.permission_denied_explanation
             }
         }
     }
+
+
 }

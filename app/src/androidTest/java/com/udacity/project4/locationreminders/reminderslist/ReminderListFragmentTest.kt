@@ -80,6 +80,8 @@ class ReminderListFragmentTest : AutoCloseKoinTest() {
         // add fragment that you want to test
         launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
         onView(withText(reminder.title)).check(matches(isDisplayed()))
+        onView(withText(reminder.description)).check(matches(isDisplayed()))
+        onView(withText(reminder.location)).check(matches(isDisplayed()))
         Thread.sleep(2000)
     }
 
