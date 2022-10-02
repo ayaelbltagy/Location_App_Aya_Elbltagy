@@ -2,6 +2,7 @@ package com.udacity.project4.locationreminders.savereminder
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentSender
@@ -101,6 +102,7 @@ class SaveReminderFragment : BaseFragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
+    @TargetApi(29)
     private fun checkLocationPermission(): Boolean {
         val foregroundPermission =
             (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(

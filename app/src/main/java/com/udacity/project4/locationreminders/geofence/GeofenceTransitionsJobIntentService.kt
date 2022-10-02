@@ -1,5 +1,6 @@
 package com.udacity.project4.locationreminders.geofence
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.JobIntentService
@@ -34,7 +35,7 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
         }
     }
 
-
+    @SuppressLint("LongLogTag")
     override fun onHandleWork(intent: Intent) {
         var geoFence = GeofencingEvent.fromIntent(intent)
         if (geoFence.hasError()) {
