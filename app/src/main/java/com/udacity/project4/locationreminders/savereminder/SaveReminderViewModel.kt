@@ -33,14 +33,7 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         longitude.value = null
     }
 
-    /**
-     * Validate the entered data then saves the reminder data to the DataSource
-     */
-    fun validateAndSaveReminder(reminderData: ReminderDataItem) {
-        if (validateEnteredData(reminderData)) {
-            saveReminder(reminderData)
-        }
-    }
+
 
     /**
      * Save the reminder to the data source
@@ -79,4 +72,12 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         }
         return true
     }
+
+//    fun savePOI(pointOfInterest: PointOfInterest?){
+//        selectedPOI.value = pointOfInterest
+//        reminderSelectedLocationStr.value = pointOfInterest?.name
+//        latitude.value = pointOfInterest?.latLng?.latitude
+//        longitude.value = pointOfInterest?.latLng?.longitude
+//
+//    }
 }
