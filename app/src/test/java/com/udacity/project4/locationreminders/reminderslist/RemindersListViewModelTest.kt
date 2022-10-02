@@ -27,9 +27,9 @@ import org.hamcrest.MatcherAssert.assertThat
 class RemindersListViewModelTest {
 
 
-    @Rule
+   @get:Rule
    val taskRule = InstantTaskExecutorRule()
-    @Rule
+    @get:Rule
     val mainCoroutine = MainCoroutineRule()
 
     private lateinit var remindersListViewModel: RemindersListViewModel
@@ -55,8 +55,8 @@ class RemindersListViewModelTest {
 
     @Test
     fun returen_error()= mainCoroutine.runBlockingTest{
-        datasource.error = true
+        datasource.setErrorValue(true)
         remindersListViewModel.loadReminders()
-        assertThat(remindersListViewModel.showSnackBar.getOrAwaitValue(),`is`("Exception happened"))
+        assertThat(remindersListViewModel.showSnackBar.getOrAwaitValue(),`is`("Error"))
     }
 }
