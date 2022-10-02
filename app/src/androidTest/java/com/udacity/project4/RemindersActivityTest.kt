@@ -147,22 +147,6 @@ class RemindersActivityTest :
 
     @Test
     fun add_reminder_and_show_toast_message() {
-//        val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
-//        dataBinding.monitorActivity(activityScenario)
-//        onView(withId(R.id.noDataTextView)).check(matches(isDisplayed()))
-//        onView(withId(R.id.addReminderFAB)).perform(click())
-//        // add data to view
-//        onView(withId(R.id.reminderTitle)).perform(replaceText("title"))
-//        onView(withId(R.id.reminderDescription)).perform(replaceText("desciription"))
-//        onView(withId(R.id.selectLocation)).perform(click())
-//        onView(withId(R.id.googleMap)).perform(click())
-//        onView(withId(R.id.myButton)).perform(click())
-//        onView(withId(R.id.saveReminder)).perform(click())
-//        // test snake bar showing
-//        onView(withText(R.string.select_location)).inRoot(ToastMatcher()).check(matches(isDisplayed()))
-//        Thread.sleep(5000)
-//        activityScenario.close()
-
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
         dataBinding.monitorActivity(activityScenario)
         onView(withId(R.id.noDataTextView)).check(matches(isDisplayed()))
@@ -173,9 +157,8 @@ class RemindersActivityTest :
         onView(withId(R.id.selectLocation)).perform(click())
         onView(withId(R.id.googleMap)).perform(click())
         onView(withId(R.id.myButton)).perform(click())
-        onView(withId(R.id.saveReminder)).perform(click())
         // show toast
-         onView(withText(R.string.reminder_saved)).inRoot(ToastMatcher()).check(matches(isDisplayed()))
+        onView(withText(R.string.select_poi)).inRoot(ToastMatcher()).check(matches(isDisplayed()))
         activityScenario.close()
     }
 }

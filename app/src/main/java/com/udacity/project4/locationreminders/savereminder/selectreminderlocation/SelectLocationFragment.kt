@@ -4,8 +4,10 @@ package com.udacity.project4.locationreminders.savereminder.selectreminderlocati
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -38,6 +40,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private var marker: Marker? = null
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
+    private final var poi : PointOfInterest? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -65,14 +68,22 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun onLocationSelected() {
-        marker.let {
-            if (it != null) {
-                _viewModel.reminderSelectedLocationStr.value = it.title
-                _viewModel.latitude.value = it.position.latitude
-                _viewModel.longitude.value = it.position.longitude
-            }
+        if(poi == null){
+            Toast.makeText(context,requireActivity().getString(R.string.select_poi),Toast.LENGTH_LONG).show()
         }
-        findNavController().popBackStack()
+        else{
+            _viewModel.savePOI(poi)
+            findNavController().popBackStack()
+
+        }
+
+//        marker.let {
+//            if (it != null) {
+//                _viewModel.reminderSelectedLocationStr.value = it.title
+//                _viewModel.latitude.value = it.position.latitude
+//                _viewModel.longitude.value = it.position.longitude
+//            }
+//        }
     }
 
 
@@ -126,6 +137,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
                 .title(poi.name)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
         )
+        this.poi = poi
     }
 
     override fun OnMapReady(googleMap: GoogleMap) {
@@ -136,8 +148,14 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         map = p0!!
         // on map  marker clicked
         map.setOnMapLongClickListener {
-            addMarkerHere(it)
-            marker!!.showInfoWindow()
+            var location = Geocoder(context,Locale.getDefault()).getFromLocation(it.latitude,it.longitude,1)
+           if(location.isNotEmpty()){
+               val thisLocation: String = location[0].getAddressLine(0)
+               val locationPoi = PointOfInterest(it, null, thisLocation)
+               addMarkerHere(it)
+               marker!!.showInfoWindow()
+               poi = locationPoi
+           }
 
         }
         // on POI clicked
