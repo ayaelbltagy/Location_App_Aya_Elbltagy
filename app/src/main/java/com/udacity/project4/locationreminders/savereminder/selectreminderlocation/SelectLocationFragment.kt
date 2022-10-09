@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -46,6 +47,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private final var poi: PointOfInterest? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -63,6 +65,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         mapFragment.let {
             mapFragment.getMapAsync(this)
         }
+
 
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireContext())
 
@@ -138,7 +141,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
                 .title(poi.name)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
         )
-        //  this.poi = poi
+        this.poi = poi
     }
 
     override fun OnMapReady(googleMap: GoogleMap) {
@@ -154,13 +157,13 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             if (location.isNotEmpty()) {
                 val thisLocation: String = location[0].getAddressLine(0)
                 val locationPoi = PointOfInterest(it, null, thisLocation)
-                //  addMarkerHere(it)
-                marker?.remove()
-                marker = map.addMarker(
-                    MarkerOptions().position(locationPoi.latLng)
-                        .title(locationPoi.name)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                )
+                addMarkerHere(it)
+//                marker?.remove()
+//                marker = map.addMarker(
+//                    MarkerOptions().position(locationPoi.latLng)
+//                        .title(locationPoi.name)
+//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+//                )
                 marker!!.showInfoWindow()
                 poi = locationPoi
             }
@@ -183,6 +186,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             map.isMyLocationEnabled = true
             zoomToMyCurrentLocation(true)
         } else if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+
             // if you fail to get my current location press retry will request permission again
             Snackbar.make(
                 requireActivity().findViewById(R.id.content),
@@ -197,6 +201,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
                 }
 
         } else {
+
             requestPermissions(
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
                 FINE_LOCATION_PERMISSION_REQUEST_CODE
@@ -219,7 +224,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     private fun zoomToMyCurrentLocation(isEnabled: Boolean) {
-        val locationRequest = LocationRequest.create().apply {
+        var locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_LOW_POWER
         }
         val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
@@ -249,15 +254,18 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         // on Success
         locationSettingsResponseTask.addOnCompleteListener {
             if (it.isSuccessful) {
-                fusedLocationProvider.lastLocation.addOnSuccessListener {
-                    if (it != null) {
-                        val latLang = LatLng(it.latitude, it.longitude)
+
+                fusedLocationProvider.lastLocation.addOnSuccessListener { location: Location? ->
+                    if (location != null) {
+                        val latLang = LatLng(location.latitude, location.longitude)
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLang, 15f))
                     }
                 }
-            }
 
+            }
         }
+
+
     }
 
     @SuppressLint("MissingPermission")

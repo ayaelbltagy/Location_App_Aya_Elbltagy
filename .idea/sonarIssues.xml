@@ -28,6 +28,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../android-kotlin-geo-maps/app/src/debug/res/values/google_maps_api.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../android-testing/README.md">
           <value>
             <set />
@@ -99,6 +104,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/authentication/UserLoginViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/base/BaseFragment.kt">
           <value>
             <set />
           </value>
@@ -394,6 +404,11 @@
           </value>
         </entry>
         <entry key="$USER_HOME$/Downloads/MostafaMohamed2002-My-Udacity-Project-4-7bd3969/app/src/main/java/com/udacity/project4/MyApp.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/MostafaMohamed2002-My-Udacity-Project-4-7bd3969/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderFragment.kt">
           <value>
             <set />
           </value>

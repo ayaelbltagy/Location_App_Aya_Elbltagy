@@ -124,8 +124,8 @@ dependencies {
     // auth
     implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
     //Maps & Geofencing
-    implementation "com.google.android.gms:play-services-location:$playServicesVersion"
-    implementation "com.google.android.gms:play-services-maps:$playServicesVersion"
+    implementation "com.google.android.gms:play-services-location:17.1.0"
+    implementation "com.google.android.gms:play-services-maps:17.0.0"
 
 
 }
