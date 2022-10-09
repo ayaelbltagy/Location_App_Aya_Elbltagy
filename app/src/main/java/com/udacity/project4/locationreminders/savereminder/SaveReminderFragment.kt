@@ -24,7 +24,6 @@ import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.databinding.FragmentSaveReminderBinding
 import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
-import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver.Companion.ACTION_GEOFENCE_EVENT
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
 import org.koin.android.ext.android.inject
@@ -46,6 +45,11 @@ class SaveReminderFragment : BaseFragment() {
         TODO("Not yet implemented")
     }
 
+
+    companion object {
+        const val ACTION_GEOFENCE_EVENT = "geofence.action.ACTION_GEOFENCE_EVENT"
+    }
+
     private val geofencePendingIntent: PendingIntent by lazy {
         val intent = Intent(requireContext(), GeofenceBroadcastReceiver::class.java)
         intent.action = ACTION_GEOFENCE_EVENT
@@ -54,6 +58,7 @@ class SaveReminderFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSaveReminderBinding
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,7 +69,7 @@ class SaveReminderFragment : BaseFragment() {
         setDisplayHomeAsUpEnabled(true)
 
         binding.viewModel = _viewModel
-
+        
         return binding.root
     }
 
@@ -88,15 +93,13 @@ class SaveReminderFragment : BaseFragment() {
 
             reminderDataItem = ReminderDataItem(title, description, location, latitude, longitude)
             if (_viewModel.validateEnteredData(reminderDataItem)) {
-                if (checkLocationPermission()) {
+
                     if (checkLocationPermission()) {
                         checkDeviceLocation()
                     } else {
                         findMyLocationPermissions()
                     }
-                } else {
-                    findMyLocationPermissions()
-                }
+
             }
         }
     }
@@ -208,7 +211,7 @@ class SaveReminderFragment : BaseFragment() {
                     requireView(),
                     R.string.location_required_error, Snackbar.LENGTH_INDEFINITE
                 ).setAction(android.R.string.ok) {
-                    findMyLocationPermissions()
+                    checkDeviceLocation()
                 }.show()
             }
         }
@@ -219,4 +222,5 @@ class SaveReminderFragment : BaseFragment() {
             }
         }
     }
+
 }
