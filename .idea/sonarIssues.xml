@@ -28,6 +28,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../BusinessBoomers/pos-android/app/src/main/java/com/businessboomers/posboomers/sm_size/view/cart_checkout/CartActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../android-kotlin-geo-maps/app/src/debug/res/values/google_maps_api.xml">
           <value>
             <set />
@@ -123,6 +128,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/locationreminders/data/dto/ReminderDTO.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/udacity/project4/locationreminders/data/local/RemindersLocalRepository.kt">
           <value>
             <set />
@@ -164,6 +174,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_authentication.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_reminder_description.xml">
           <value>
             <set />
           </value>
@@ -408,12 +423,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$USER_HOME$/Downloads/MostafaMohamed2002-My-Udacity-Project-4-7bd3969/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceTransitionsJobIntentService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$USER_HOME$/Downloads/MostafaMohamed2002-My-Udacity-Project-4-7bd3969/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderFragment.kt">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$USER_HOME$/Downloads/MostafaMohamed2002-My-Udacity-Project-4-7bd3969/app/src/main/java/com/udacity/project4/locationreminders/savereminder/selectreminderlocation/SelectLocationFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/MostafaMohamed2002-My-Udacity-Project-4-7bd3969/app/src/test/java/com/udacity/project4/locationreminders/data/FakeDataSource.kt">
           <value>
             <set />
           </value>

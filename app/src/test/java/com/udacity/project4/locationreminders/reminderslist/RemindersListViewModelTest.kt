@@ -44,7 +44,7 @@ class RemindersListViewModelTest {
     }
 
     @Test
-    fun check_loading_status() = mainCoroutine.runBlockingTest {
+    fun check_loading () = mainCoroutine.runBlockingTest {
         mainCoroutine.pauseDispatcher()
         remindersListViewModel.loadReminders()
         assertThat(remindersListViewModel.showLoading.getOrAwaitValue(),`is`(true))
@@ -54,9 +54,9 @@ class RemindersListViewModelTest {
     }
 
     @Test
-    fun returen_error()= mainCoroutine.runBlockingTest{
+    fun shouldReturnError ()= mainCoroutine.runBlockingTest{
         datasource.setErrorValue(true)
         remindersListViewModel.loadReminders()
-        assertThat(remindersListViewModel.showSnackBar.getOrAwaitValue(),`is`("Error"))
+        assertThat(remindersListViewModel.showSnackBar.getOrAwaitValue(),`is`("Test Exception"))
     }
 }
