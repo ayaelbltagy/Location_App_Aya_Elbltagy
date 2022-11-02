@@ -4,8 +4,7 @@ import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
 
 //Use FakeDataSource that acts as a test double to the LocalDataSource
-class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf()) :
-    ReminderDataSource {
+class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf()) : ReminderDataSource {
 
     private var shouldReturnError = false
 
@@ -13,7 +12,7 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
         return try {
             if (shouldReturnError) {
-                return throw Exception("Error happened during getting reminders")
+                 throw Exception("Error happened during getting reminders")
              }
             reminders.let {
                 return@let Result.Success(ArrayList(it))
@@ -28,13 +27,21 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
     }
 
     override suspend fun getReminder(id: String): Result<ReminderDTO> {
-        if (shouldReturnError)
-            return throw Exception("Error happened during getting reminder")
-        val reminder = reminders?.first { it.id == id }
-        return if (reminder != null) {
-            Result.Success(reminder)
-        } else {
-            Result.Error("Reminder $id not found")
+        return try {
+            if (shouldReturnError)
+                throw Exception("Error happened during getting reminder")
+           try {
+               val reminder = reminders?.first { it.id == id }
+               if (reminder != null) {
+                   Result.Success(reminder)
+               } else {
+                   Result.Error("Reminder $id not found")
+               }
+           }catch (exception :NoSuchElementException){
+               Result.Error(exception.localizedMessage)
+           }
+        } catch (ex: Exception) {
+            Result.Error(ex.localizedMessage)
         }
     }
 

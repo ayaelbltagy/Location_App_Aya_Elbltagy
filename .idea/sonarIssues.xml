@@ -428,6 +428,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/java/com/store/businessboomers/store_app_interface/template_four/ui/checkout/Four_FrMyCartView.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/java/com/store/businessboomers/store_app_interface/template_four/ui/checkout/Four_FrPrintInvoice.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/java/com/store/businessboomers/store_app_interface/template_four/ui/more/Four_AcSettingsView.java">
           <value>
             <set />
@@ -448,12 +458,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/res/layouts/comman/layout-ar/four_print_invoice.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/res/layouts/comman/layout-ar/four_search_page.xml">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/res/layouts/comman/layout/four_print_invoice.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/res/layouts/comman/layout/four_search_page.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../storeApp/app/src/main/res/layouts/default/layout/fragment_fr_print_invoice.xml">
           <value>
             <set />
           </value>
