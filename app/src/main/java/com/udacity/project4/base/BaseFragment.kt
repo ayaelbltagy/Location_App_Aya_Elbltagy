@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -41,4 +42,6 @@ abstract class BaseFragment : Fragment() {
             }
         })
     }
+
+    abstract fun OnMapReady(googleMap: GoogleMap)
 }

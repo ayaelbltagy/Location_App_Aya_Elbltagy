@@ -41,6 +41,7 @@ class MyApp : Application() {
 
         startKoin {
             androidContext(this@MyApp)
+            // List of modules that you need to inject
             modules(listOf(myModule))
         }
     }

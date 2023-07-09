@@ -4,9 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.firebase.ui.auth.AuthUI
+import com.google.android.gms.maps.GoogleMap
 import com.udacity.project4.R
 import com.udacity.project4.authentication.AuthenticationActivity
+import com.udacity.project4.authentication.UserLoginViewModel
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.databinding.FragmentRemindersBinding
@@ -18,6 +22,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ReminderListFragment : BaseFragment() {
     //use Koin to retrieve the ViewModel instance
     override val _viewModel: RemindersListViewModel by viewModel()
+
+    // Get a reference to the ViewModel scoped to this Fragment
+    private val viewModel by viewModels<UserLoginViewModel>()
+    private var isLogin = false
+
+
+    override fun OnMapReady(googleMap: GoogleMap) {
+        TODO("Not yet implemented")
+    }
+
     private lateinit var binding: FragmentRemindersBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +49,7 @@ class ReminderListFragment : BaseFragment() {
         setTitle(getString(R.string.app_name))
 
         binding.refreshLayout.setOnRefreshListener { _viewModel.loadReminders() }
-
+        observeAuthenticateState()
         return binding.root
     }
 
@@ -75,15 +89,15 @@ class ReminderListFragment : BaseFragment() {
         when (item.itemId) {
             R.id.logout -> {
                 //  navigate to login activity
-               AuthUI.getInstance().signOut(requireContext())
-                 .addOnSuccessListener {
+                AuthUI.getInstance().signOut(requireContext())
+                    .addOnSuccessListener {
                         val logOutIntent = Intent(activity, AuthenticationActivity::class.java)
                         logOutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(logOutIntent)
                         requireActivity().finish()
 
-                  }
-              }
+                    }
+            }
         }
         return super.onOptionsItemSelected(item)
 
@@ -91,8 +105,32 @@ class ReminderListFragment : BaseFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-//        display logout as menu item
+        //        display logout as menu item
         inflater.inflate(R.menu.main_menu, menu)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        if (isLogin) {
+            menu.findItem(R.id.logout).setTitle("Logout")
+        } else {
+            menu.findItem(R.id.logout).setTitle("Login")
+        }
+        super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun observeAuthenticateState() {
+        viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
+            when (authenticationState) {
+                UserLoginViewModel.AuthenticationStatusClass.AUTHENTICATED -> {
+                    // show logout
+                    isLogin = true
+                }
+                UserLoginViewModel.AuthenticationStatusClass.UNAUTHENTICATED -> {
+                    // convert  logout to login
+                    isLogin = false
+
+                }
+            }
+        })
+    }
 }
